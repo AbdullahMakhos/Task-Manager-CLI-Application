@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         taskManager = loadTasks();
         
-        System.out.println("Task Manager - Commands: show, add <task>, remove <number/name>, clear, exit");
+        System.out.println("Task Manager - Commands:\n show, add <task>, remove <number/name>, done<number/name>, undone <number/name> clear, exit");
         
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {

@@ -33,12 +33,62 @@ public class TaskManager {
             case "clear":
                 clearTasks();
                 break;
+            case "done":
+            	setDone(arg);
+            	break;
+            case "undone":
+            	setUnDone(arg);
+            	break;
             default:
                 System.out.println("Unknown command: " + cmd);
         }
     }
     
-    private void showTasks() {
+    private void setUnDone(String input) {
+    	try {
+            int index = Integer.parseInt(input) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                Task target = tasks.get(index);
+                tasks.get(index).setDone(false);
+                System.out.println("Done: " + target.getDescription());
+            } else {
+                System.out.println("Invalid task number");
+            }
+        } catch (NumberFormatException e) {
+            tasks.forEach(t -> {
+            	if(t.getDescription().equalsIgnoreCase(input)) {
+            		t.setDone(false);
+            	    System.out.println("Done: " + t.getDescription());
+                }else {
+                    System.out.println("Invalid task description");
+                }
+           });
+        }
+	}
+
+	private void setDone(String input) {
+		try {
+            int index = Integer.parseInt(input) - 1;
+            if (index >= 0 && index < tasks.size()) {
+                Task target = tasks.get(index);
+                tasks.get(index).setDone(true);
+                System.out.println("unDone: " + target.getDescription());
+            } else {
+                System.out.println("Invalid task number");
+            }
+        } catch (NumberFormatException e) {
+            tasks.forEach(t -> {
+            	if(t.getDescription().equalsIgnoreCase(input)) {
+            		t.setDone(true);
+            	    System.out.println("unDone: " + t.getDescription());
+                }else {
+                    System.out.println("Invalid task description");
+                }
+           });
+        }
+	}
+
+	private void showTasks() {
         if (tasks.isEmpty()) {
             System.out.println("No tasks found.");
             return;
