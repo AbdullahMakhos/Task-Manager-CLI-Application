@@ -50,7 +50,7 @@ public class TaskManager {
             if (index >= 0 && index < tasks.size()) {
                 Task target = tasks.get(index);
                 tasks.get(index).setDone(false);
-                System.out.println("Done: " + target.getDescription());
+                System.out.println("unDone: " + target.getDescription());
             } else {
                 System.out.println("Invalid task number");
             }
@@ -58,7 +58,7 @@ public class TaskManager {
             tasks.forEach(t -> {
             	if(t.getDescription().equalsIgnoreCase(input)) {
             		t.setDone(false);
-            	    System.out.println("Done: " + t.getDescription());
+            	    System.out.println("unDone: " + t.getDescription());
                 }else {
                     System.out.println("Invalid task description");
                 }
@@ -72,7 +72,7 @@ public class TaskManager {
             if (index >= 0 && index < tasks.size()) {
                 Task target = tasks.get(index);
                 tasks.get(index).setDone(true);
-                System.out.println("unDone: " + target.getDescription());
+                System.out.println("Done: " + target.getDescription());
             } else {
                 System.out.println("Invalid task number");
             }
@@ -80,7 +80,7 @@ public class TaskManager {
             tasks.forEach(t -> {
             	if(t.getDescription().equalsIgnoreCase(input)) {
             		t.setDone(true);
-            	    System.out.println("unDone: " + t.getDescription());
+            	    System.out.println("Done: " + t.getDescription());
                 }else {
                     System.out.println("Invalid task description");
                 }
