@@ -16,9 +16,10 @@ public class TaskManager {
     }
     
     public void processCommand(String command) {
-        String[] parts = command.trim().split(" ", 2);
-        String cmd = parts[0].toLowerCase();
-        String arg = parts.length > 1 ? parts[1] : "";
+        command = command.trim();
+        int firstSpace = command.indexOf(' ');
+        String cmd = (firstSpace == -1) ? command.toLowerCase() : command.substring(0, firstSpace).toLowerCase();
+        String arg = (firstSpace == -1) ? "" : command.substring(firstSpace + 1).trim();
         
         switch (cmd) {
             case "show":
@@ -34,11 +35,11 @@ public class TaskManager {
                 clearTasks();
                 break;
             case "done":
-            	setDone(arg);
-            	break;
+                setDone(arg);
+                break;
             case "undone":
-            	setUnDone(arg);
-            	break;
+                setUnDone(arg);
+                break;
             default:
                 System.out.println("Unknown command: " + cmd);
         }
@@ -50,20 +51,15 @@ public class TaskManager {
             if (index >= 0 && index < tasks.size()) {
                 Task target = tasks.get(index);
                 tasks.get(index).setDone(false);
-                System.out.println("unDone: " + target.getDescription());
+                System.out.println("Marked incomplete: " + target.getDescription());
             } else {
-                System.out.println("Invalid task number");
+                System.out.println("Error : Invalid task number");
             }
         } catch (NumberFormatException e) {
-            tasks.forEach(t -> {
-            	if(t.getDescription().equalsIgnoreCase(input)) {
-            		t.setDone(false);
-            	    System.out.println("unDone: " + t.getDescription());
-                }else {
-                    System.out.println("Invalid task description");
-                }
-           });
+               System.out.println("Error :  Invalid task number");
+                
         }
+        
 	}
 
 	private void setDone(String input) {
@@ -72,20 +68,14 @@ public class TaskManager {
             if (index >= 0 && index < tasks.size()) {
                 Task target = tasks.get(index);
                 tasks.get(index).setDone(true);
-                System.out.println("Done: " + target.getDescription());
+                System.out.println("Marked complete: " + target.getDescription());
             } else {
-                System.out.println("Invalid task number");
+                System.out.println("Error : Invalid task number");
             }
         } catch (NumberFormatException e) {
-            tasks.forEach(t -> {
-            	if(t.getDescription().equalsIgnoreCase(input)) {
-            		t.setDone(true);
-            	    System.out.println("Done: " + t.getDescription());
-                }else {
-                    System.out.println("Invalid task description");
-                }
-           });
+               System.out.println("Error : Invalid task number");
         }
+        
 	}
 
 	private void showTasks() {
@@ -100,14 +90,15 @@ public class TaskManager {
         }
     }
     
-    private void addTask(String description) {
-        if (description.isEmpty()) {
-            System.out.println("Error: Task description cannot be empty");
-            return;
-        }
-        tasks.add(new Task(description));
-        System.out.println("Added: " + description);
-    }
+	private void addTask(String description) {
+	    description = description.trim();
+	    if (description.isEmpty()) {
+	        System.out.println("Error: Task description cannot be empty");
+	        return;
+	    }
+	    tasks.add(new Task(description));
+	    System.out.println("Added: " + description);
+	}
     
     private void removeTask(String input) {
         try {
@@ -116,13 +107,10 @@ public class TaskManager {
                 Task removed = tasks.remove(index);
                 System.out.println("Removed: " + removed.getDescription());
             } else {
-                System.out.println("Invalid task number");
+                System.out.println("Error : Invalid task number");
             }
         } catch (NumberFormatException e) {
-            // Try to remove by description if not a number
-            boolean removed = tasks.removeIf(task -> 
-                task.getDescription().equalsIgnoreCase(input));
-            System.out.println(removed ? "Removed: " + input : "Task not found: " + input);
+            System.out.println("Error : Invalid task number");
         }
     }
     
