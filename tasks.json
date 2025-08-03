@@ -1,3 +1,11 @@
 {
-  "tasks" : [ ]
+  "tasks" : [ {
+    "description" : "Buy Eggs",
+    "date" : [ 2025, 7, 24 ],
+    "done" : false
+  }, {
+    "description" : "Buy bread",
+    "date" : [ 2025, 7, 24 ],
+    "done" : false
+  } ]
 }
